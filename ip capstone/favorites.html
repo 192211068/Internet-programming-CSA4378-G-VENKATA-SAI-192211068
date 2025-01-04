@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Favorites</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+        }
+
+        h1 {
+            color: yellow; /* Main heading color */
+            margin-top: 20px;
+        }
+
+        #backToHomeBtn {
+            background-color: #ffd700;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        #backToHomeBtn:hover {
+            background-color: #ffc107;
+        }
+
+        .favorites-item {
+            background-color: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .remove-btn {
+            background-color: #ff6347;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .remove-btn:hover {
+            background-color: #ff4500;
+        }
+    </style>
+</head>
+<body>
+    <h1>My Favorite Recipes</h1>
+
+    <!-- Back to Home Button -->
+    <div>
+        <a href="index.html"><button id="backToHomeBtn">Back to Home</button></a>
+    </div>
+
+    <!-- Favorites List -->
+    <div id="favorites-list"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const favoritesList = document.getElementById("favorites-list");
+
+            // Load favorites from localStorage
+            const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+            // Function to render the favorites list
+            const renderFavorites = () => {
+                favoritesList.innerHTML = ""; // Clear the list first
+                if (favorites.length === 0) {
+                    favoritesList.innerHTML = "<p>No favorites added yet.</p>";
+                } else {
+                    favorites.forEach((favorite, index) => {
+                        // Create a new div for each favorite item
+                        const favoriteItem = document.createElement("div");
+                        favoriteItem.classList.add("favorites-item");
+
+                        // Add content to the favorite item
+                        favoriteItem.innerHTML = `
+                            <span>${favorite}</span>
+                            <button class="remove-btn" data-index="${index}">Remove</button>
+                        `;
+
+                        // Append the favorite item to the list
+                        favoritesList.appendChild(favoriteItem);
+                    });
+
+                    // Add event listeners to the remove buttons
+                    const removeButtons = document.querySelectorAll(".remove-btn");
+                    removeButtons.forEach(button => {
+                        button.addEventListener("click", removeFavorite);
+                    });
+                }
+            };
+
+            // Function to remove a favorite
+            const removeFavorite = (event) => {
+                const index = event.target.getAttribute("data-index");
+                // Remove the favorite from the array
+                favorites.splice(index, 1);
+                // Update localStorage with the new favorites array
+                localStorage.setItem("favorites", JSON.stringify(favorites));
+                // Re-render the list
+                renderFavorites();
+            };
+
+            // Initial render of favorites
+            renderFavorites();
+        });
+    </script>
+</body>
+</html>

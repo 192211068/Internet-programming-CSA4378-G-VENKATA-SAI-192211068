@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posted Recipes</title>
+    <link rel="stylesheet" href="home.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .recipes-container {
+            width: 80%;
+            max-width: 900px;
+            margin-top: 30px;
+        }
+
+        /* Main Heading - Yellow */
+        h1 {
+            color: yellow; /* Set the main heading color to yellow */
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .recipe {
+            background-color: white;
+            color: black;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .recipe:hover {
+            background-color: #f9f9f9;
+        }
+
+        .recipe h2 {
+            margin-top: 0;
+            font-size: 24px;
+            color: yellow; /* Yellow color for the recipe title */
+        }
+
+        .recipe p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .recipe .ingredients,
+        .recipe .instructions {
+            margin-top: 10px;
+        }
+
+        a {
+            color: orange;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: orange;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="recipes-container">
+        <!-- Main Heading - Posted Recipes -->
+        <h1>Posted Recipes</h1>
+
+        <!-- Recipes will be dynamically inserted here -->
+    </div>
+
+    <a href="index.html" class="back-link">Back to Home</a>
+
+    <script>
+        // Load posted recipes from localStorage and display them
+        document.addEventListener("DOMContentLoaded", function() {
+            const recipes = JSON.parse(localStorage.getItem("recipes")) || [];
+            const recipesContainer = document.querySelector(".recipes-container");
+
+            if (recipes.length === 0) {
+                recipesContainer.innerHTML = "<p>No recipes posted yet.</p>";
+            } else {
+                recipes.forEach((recipe) => {
+                    const recipeElement = document.createElement("div");
+                    recipeElement.classList.add("recipe");
+
+                    // Create recipe content
+                    recipeElement.innerHTML = `
+                        <h2>${recipe.title}</h2>
+                        <div class="ingredients">
+                            <strong>Ingredients:</strong>
+                            <p>${recipe.ingredients}</p>
+                        </div>
+                        <div class="instructions">
+                            <strong>Instructions:</strong>
+                            <p>${recipe.instructions}</p>
+                        </div>
+                    `;
+
+                    // Append recipe to the container
+                    recipesContainer.appendChild(recipeElement);
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+/* Common Button Styles */
+button {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button:hover {
+    background-color: orange;
+    color: white;
+}
+
+/* Profile Icon */
+#profile-icon {
+    cursor: pointer;
+}
+
+#profile-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+/* Login Section */
+#login-btn {
+    cursor: pointer;
+}
+
+/* Profile Page */
+.profile-container {
+    padding: 20px;
+}
+
+.edit-password input {
+    margin-bottom: 10px;
+    padding: 8px;
+    width: 300px;
+    border: 1px solid #ccc;
+}
+
+.edit-password button {
+    padding: 10px 20px;
+}

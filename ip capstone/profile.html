@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile - Flavor Fusion</title>
+    <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+    <div class="profile-container">
+        <h1>User Profile</h1>
+        <div class="profile-section">
+            <h2>My Profile</h2>
+            <p><strong>Username:</strong> <span id="profileUsername">JohnDoe</span></p>
+            <p><strong>Email:</strong> <span id="profileEmail">johndoe@example.com</span></p>
+        </div>
+
+        <div class="profile-section">
+            <h2>My Favorites</h2>
+            <ul>
+                <li>Spaghetti Carbonara</li>
+                <li>Chocolate Cake</li>
+                <li>Caesar Salad</li>
+            </ul>
+        </div>
+
+        <button onclick="logout()">Logout</button>
+    </div>
+
+    <script>
+        // Logout function to clear localStorage and redirect to home page
+        function logout() {
+            localStorage.setItem('loggedIn', 'false'); // Set loggedIn to false
+            window.location.href = "home.html"; // Redirect to home page
+        }
+    </script>
+</body>
+</html>

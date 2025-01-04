@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="dinner.css">
+    <title>Dinner Recipes</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Dinner Recipes</h1>
+
+        <div id="recipesContainer"></div>
+
+        <a href="index.html" class="back">Back to Home</a>
+    </div>
+
+    <script src="dinner.js"></script>
+    <script>
+        // Data Storage for Dinner Recipes
+        let recipes = JSON.parse(localStorage.getItem("dinnerRecipes")) || [
+            {
+                name: "Chapati",
+                image: "chapati.jpg",
+                ingredients: ["2 cups whole wheat flour", "Water", "Salt", "Oil"],
+                process: [
+                    "Mix flour, water, and salt to form a dough.",
+                    "Divide into small balls and roll them into thin circles.",
+                    "Cook on a hot griddle until golden brown on both sides.",
+                    "Serve hot with curry or vegetables."
+                ],
+            },
+            {
+                name: "Roti",
+                image: "roti.jpg",
+                ingredients: ["2 cups whole wheat flour", "Water", "Salt", "Ghee or butter"],
+                process: [
+                    "Mix flour and water to make a dough.",
+                    "Divide dough into small balls, roll them into flat circles.",
+                    "Cook on a griddle until both sides are golden.",
+                    "Brush with ghee or butter before serving."
+                ],
+            },
+            {
+                name: "Parota",
+                image: "parota.jpg",
+                ingredients: ["2 cups all-purpose flour", "Water", "Salt", "Ghee", "Sugar"],
+                process: [
+                    "Mix flour, water, and salt to form a dough.",
+                    "Roll out dough into thin circles and spread ghee over them.",
+                    "Roll into a log and coil it into a spiral.",
+                    "Flatten and cook on a griddle until crispy and golden."
+                ],
+            },
+            {
+                name: "Dal Curry",
+                image: "dalcurry.jpg",
+                ingredients: ["1 cup lentils", "1 onion", "2 tomatoes", "Ginger-garlic paste", "Turmeric", "Cumin seeds", "Coriander powder", "Salt", "Oil"],
+                process: [
+                    "Cook lentils in water until soft.",
+                    "Heat oil in a pan, add cumin seeds, and sauté onions and ginger-garlic paste.",
+                    "Add tomatoes, turmeric, and coriander powder, cook until tomatoes are soft.",
+                    "Add cooked lentils and simmer for 10-15 minutes. Serve with rice or roti."
+                ],
+            }
+        ];
+
+        const recipesContainer = document.getElementById("recipesContainer");
+
+        // Render Recipes
+        const renderRecipes = () => {
+            recipesContainer.innerHTML = recipes
+                .map((recipe) => `
+                <div class="recipe">
+                    <img src="${recipe.image}" alt="${recipe.name}">
+                    <div class="recipe-info">
+                        <h2>${recipe.name}</h2>
+                        <span class="heart" onclick="toggleFavorite('${recipe.name}', this)">&#9829;</span>
+                        <h3>Ingredients:</h3>
+                        <ul class="ingredients">
+                            ${recipe.ingredients.map(ing => `<li>${ing}</li>`).join("")}
+                        </ul>
+                        <h3>Preparation:</h3>
+                        <ul class="process">
+                            ${recipe.process.map(step => `<li>${step}</li>`).join("")}
+                        </ul>
+                    </div>
+                </div>
+            `).join("");
+        };
+
+        // Toggle Favorite
+        const toggleFavorite = (recipeName, heartIcon) => {
+            let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+            const index = favorites.indexOf(recipeName);
+
+            if (index === -1) {
+                favorites.push(recipeName);
+                heartIcon.style.color = "red"; // Change heart to red
+            } else {
+                favorites.splice(index, 1);
+                heartIcon.style.color = "white"; // Remove from favorites
+            }
+
+            localStorage.setItem("favorites", JSON.stringify(favorites));
+        };
+
+        // Initialize
+        renderRecipes();
+    </script>
+</body>
+</html>

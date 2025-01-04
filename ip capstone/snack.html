@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="snack.css">
+    <title>Snack Recipes</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Snack Recipes</h1>
+
+        <div id="recipesContainer"></div>
+
+        <a href="index.html" class="back">Back to Home</a>
+    </div>
+
+    <script src="snack.js"></script>
+    <script>
+        // Data Storage for Snack Recipes
+        let recipes = JSON.parse(localStorage.getItem("snackRecipes")) || [
+            {
+                name: "Bondas",
+                image: "bonda.jpg",
+                ingredients: ["2 cups potato", "1 cup gram flour", "Green chili", "Curry leaves", "Salt", "Oil"],
+                process: [
+                    "Mash the boiled potatoes and mix them with spices.",
+                    "Shape into small balls and coat with gram flour.",
+                    "Deep fry in hot oil until golden and crispy.",
+                ],
+            },
+            {
+                name: "Vada",
+                image: "vada.jpg",
+                ingredients: ["2 cups urad dal", "1 onion", "Green chilies", "Ginger", "Salt", "Oil"],
+                process: [
+                    "Soak urad dal overnight, then grind it into a batter.",
+                    "Mix in finely chopped onion, green chilies, and ginger.",
+                    "Shape the batter into donuts and deep fry in hot oil.",
+                ],
+            },
+            {
+                name: "Bajji",
+                image: "bajji.jpg",
+                ingredients: ["2 cups gram flour", "1 onion", "Chili powder", "Salt", "Oil"],
+                process: [
+                    "Mix gram flour with chili powder and salt to make a batter.",
+                    "Dip sliced vegetables like potato or onion in the batter.",
+                    "Deep fry until crispy and golden brown.",
+                ],
+            },
+            {
+                name: "Pakoda",
+                image: "pakoda.jpg",
+                ingredients: ["2 cups chickpea flour", "1 onion", "Green chilies", "Cumin", "Salt", "Oil"],
+                process: [
+                    "Combine chickpea flour with spices and water to form a thick batter.",
+                    "Add finely chopped onion and green chilies to the batter.",
+                    "Deep fry spoonfuls of the batter until crispy.",
+                ],
+            }
+        ];
+
+        const recipesContainer = document.getElementById("recipesContainer");
+
+        // Render Recipes
+        const renderRecipes = () => {
+            recipesContainer.innerHTML = recipes
+                .map((recipe) => `
+                <div class="recipe">
+                    <img src="${recipe.image}" alt="${recipe.name}">
+                    <div class="recipe-info">
+                        <h2>${recipe.name}</h2>
+                        <span class="heart" onclick="toggleFavorite('${recipe.name}', this)">&#9829;</span>
+                        <h3>Ingredients:</h3>
+                        <ul class="ingredients">
+                            ${recipe.ingredients.map(ing => `<li>${ing}</li>`).join("")}
+                        </ul>
+                        <h3>Preparation:</h3>
+                        <ul class="process">
+                            ${recipe.process.map(step => `<li>${step}</li>`).join("")}
+                        </ul>
+                    </div>
+                </div>
+            `).join("");
+        };
+
+        // Toggle Favorite
+        const toggleFavorite = (recipeName, heartIcon) => {
+            let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+            const index = favorites.indexOf(recipeName);
+
+            if (index === -1) {
+                favorites.push(recipeName);
+                heartIcon.style.color = "red"; // Change heart to red
+            } else {
+                favorites.splice(index, 1);
+                heartIcon.style.color = "white"; // Remove from favorites
+            }
+
+            localStorage.setItem("favorites", JSON.stringify(favorites));
+        };
+
+        // Initialize
+        renderRecipes();
+    </script>
+</body>
+</html>

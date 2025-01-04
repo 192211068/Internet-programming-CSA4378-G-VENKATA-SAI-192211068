@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post a Recipe</title>
+    <link rel="stylesheet" href="home.css">
+</head>
+<body>
+    <h1>Post a Recipe</h1>
+    <form id="recipeForm">
+        <label for="recipeTitle">Recipe Title:</label>
+        <input type="text" id="recipeTitle" required><br><br>
+
+        <label for="ingredients">Ingredients:</label>
+        <textarea id="ingredients" required></textarea><br><br>
+
+        <label for="instructions">Instructions:</label>
+        <textarea id="instructions" required></textarea><br><br>
+
+        <button type="submit">Submit Recipe</button>
+    </form>
+
+    <br>
+    <a href="index.html"><button>Back to Home</button></a>
+
+    <script>
+        // Handle recipe submission
+        document.getElementById("recipeForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const title = document.getElementById("recipeTitle").value;
+            const ingredients = document.getElementById("ingredients").value;
+            const instructions = document.getElementById("instructions").value;
+
+            const newRecipe = { title, ingredients, instructions };
+            const recipes = JSON.parse(localStorage.getItem("recipes")) || [];
+
+            // Save new recipe to localStorage
+            recipes.push(newRecipe);
+            localStorage.setItem("recipes", JSON.stringify(recipes));
+
+            // Clear form
+            document.getElementById("recipeForm").reset();
+
+            alert("Recipe submitted successfully!");
+        });
+    </script>
+</body>
+</html>

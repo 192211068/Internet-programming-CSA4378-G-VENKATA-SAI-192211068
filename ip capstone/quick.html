@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="quick.css">
+    <title>Quick Recipes</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Quick Recipes</h1>
+
+        <div id="recipesContainer"></div>
+
+        <a href="index.html" class="back">Back to Home</a>
+    </div>
+
+    <script src="quick.js"></script>
+    <script>
+        // Data Storage for Quick Recipes
+        let recipes = JSON.parse(localStorage.getItem("quickRecipes")) || [
+            {
+                name: "Ramen",
+                image: "ramen.jpg",
+                ingredients: ["1 packet instant ramen", "2 cups water", "1 tsp soy sauce", "1 boiled egg", "1 tsp sesame oil", "Chopped spring onions"],
+                process: [
+                    "Boil 2 cups of water in a pot.",
+                    "Add the ramen noodles and cook for 3-4 minutes.",
+                    "Add soy sauce and sesame oil for extra flavor.",
+                    "Top with a boiled egg and chopped spring onions.",
+                    "Serve hot and enjoy!"
+                ],
+            },
+            {
+                name: "Noodles",
+                image: "noodles.jpg",
+                ingredients: ["200g noodles", "1 tbsp soy sauce", "1 tbsp vegetable oil", "1 carrot, julienned", "1 bell pepper, sliced", "Chopped spring onions"],
+                process: [
+                    "Boil the noodles according to package instructions.",
+                    "In a pan, heat oil and sauté vegetables for 2-3 minutes.",
+                    "Add the cooked noodles and soy sauce, stir well.",
+                    "Top with chopped spring onions and serve hot."
+                ],
+            },
+            {
+                name: "Garlic Bread",
+                image: "garlicbread.jpg",
+                ingredients: ["1 loaf of baguette", "4 tbsp butter", "3 cloves garlic, minced", "1 tbsp parsley", "Salt to taste"],
+                process: [
+                    "Preheat the oven to 375°F (190°C).",
+                    "Mix butter, garlic, parsley, and salt in a bowl.",
+                    "Spread the garlic butter mixture on the sliced baguette.",
+                    "Place the bread on a baking sheet and bake for 10-12 minutes.",
+                    "Serve hot and enjoy your crispy garlic bread."
+                ],
+            },
+            {
+                name: "Pasta",
+                image: "pasta.jpg",
+                ingredients: ["200g pasta", "1 tbsp olive oil", "2 cloves garlic, minced", "1 cup tomato sauce", "1 tsp oregano", "Grated parmesan cheese"],
+                process: [
+                    "Boil the pasta according to package instructions.",
+                    "In a pan, heat olive oil and sauté garlic for 1-2 minutes.",
+                    "Add tomato sauce and oregano, simmer for 5 minutes.",
+                    "Toss the cooked pasta in the sauce and top with grated parmesan cheese.",
+                    "Serve hot."
+                ],
+            }
+        ];
+
+        const recipesContainer = document.getElementById("recipesContainer");
+
+        // Render Recipes
+        const renderRecipes = () => {
+            recipesContainer.innerHTML = recipes
+                .map((recipe) => `
+                <div class="recipe">
+                    <img src="${recipe.image}" alt="${recipe.name}">
+                    <div class="recipe-info">
+                        <h2>${recipe.name}</h2>
+                        <span class="heart" onclick="toggleFavorite('${recipe.name}', this)">&#9829;</span>
+                        <h3>Ingredients:</h3>
+                        <ul class="ingredients">
+                            ${recipe.ingredients.map(ing => `<li>${ing}</li>`).join("")}
+                        </ul>
+                        <h3>Preparation:</h3>
+                        <ul class="process">
+                            ${recipe.process.map(step => `<li>${step}</li>`).join("")}
+                        </ul>
+                    </div>
+                </div>
+            `).join("");
+        };
+
+        // Toggle Favorite
+        const toggleFavorite = (recipeName, heartIcon) => {
+            let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+            const index = favorites.indexOf(recipeName);
+
+            if (index === -1) {
+                favorites.push(recipeName);
+                heartIcon.style.color = "red"; // Change heart to red
+            } else {
+                favorites.splice(index, 1);
+                heartIcon.style.color = "white"; // Remove from favorites
+            }
+
+            localStorage.setItem("favorites", JSON.stringify(favorites));
+        };
+
+        // Initialize
+        renderRecipes();
+    </script>
+</body>
+</html>

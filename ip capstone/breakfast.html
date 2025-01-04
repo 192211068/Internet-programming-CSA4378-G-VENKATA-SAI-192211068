@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="breakfast.css">
+    <title>Breakfast Recipes</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Breakfast Recipes</h1>
+
+        <div id="recipesContainer"></div>
+
+        <a href="index.html" class="back">Back to Home</a>
+    </div>
+
+    <script src="breakfast.js"></script>
+    <script>
+        // Data Storage for Breakfast Recipes
+        let recipes = JSON.parse(localStorage.getItem("breakfastRecipes")) || [
+            {
+                name: "Idly",
+                image: "idly.jpg",
+                ingredients: ["2 cups rice", "1 cup urad dal", "Salt"],
+                process: [
+                    "Soak rice and dal separately for 6 hours.",
+                    "Grind them to a smooth batter.",
+                    "Ferment overnight and steam in idly molds.",
+                ],
+            },
+            {
+                name: "Dosa",
+                image: "dosa.jpg",
+                ingredients: ["2 cups rice", "1 cup urad dal", "Salt"],
+                process: [
+                    "Soak rice and dal separately for 6 hours.",
+                    "Grind them to a smooth batter.",
+                    "Ferment overnight and make thin crepes on a hot skillet.",
+                ],
+            },
+            {
+                name: "Upma",
+                image: "upma.jpg",
+                ingredients: ["1 cup semolina (rava)", "1 onion", "Green chilies", "Ginger", "Salt", "Oil"],
+                process: [
+                    "Roast semolina in a pan until slightly golden.",
+                    "In another pan, sauté onions, chilies, and ginger.",
+                    "Add water, bring to a boil, and stir in roasted semolina.",
+                    "Cook until the mixture thickens and serve hot.",
+                ],
+            },
+            {
+                name: "Pongal",
+                image: "pongal.jpg",
+                ingredients: ["1 cup rice", "1 cup moong dal", "Cumin", "Black pepper", "Ginger", "Salt"],
+                process: [
+                    "Dry roast the moong dal and cook it with rice.",
+                    "Temper with cumin, black pepper, and ginger.",
+                    "Serve hot with chutney or sambar.",
+                ],
+            }
+        ];
+
+        const recipesContainer = document.getElementById("recipesContainer");
+
+        // Render Recipes
+        const renderRecipes = () => {
+            recipesContainer.innerHTML = recipes
+                .map((recipe) => `
+                <div class="recipe">
+                    <img src="${recipe.image}" alt="${recipe.name}">
+                    <div class="recipe-info">
+                        <h2>${recipe.name}</h2>
+                        <span class="heart" onclick="toggleFavorite('${recipe.name}', this)">&#9829;</span>
+                        <h3>Ingredients:</h3>
+                        <ul class="ingredients">
+                            ${recipe.ingredients.map(ing => `<li>${ing}</li>`).join("")}
+                        </ul>
+                        <h3>Preparation:</h3>
+                        <ul class="process">
+                            ${recipe.process.map(step => `<li>${step}</li>`).join("")}
+                        </ul>
+                    </div>
+                </div>
+            `).join("");
+        };
+
+        // Toggle Favorite
+        const toggleFavorite = (recipeName, heartIcon) => {
+            let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+            const index = favorites.indexOf(recipeName);
+
+            if (index === -1) {
+                favorites.push(recipeName);
+                heartIcon.style.color = "red"; // Change heart to red
+            } else {
+                favorites.splice(index, 1);
+                heartIcon.style.color = "white"; // Remove from favorites
+            }
+
+            localStorage.setItem("favorites", JSON.stringify(favorites));
+        };
+
+        // Initialize
+        renderRecipes();
+    </script>
+</body>
+</html>

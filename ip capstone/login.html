@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Flavor Fusion</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <!-- Login Form -->
+    <div class="login-container">
+        <div class="login-box">
+            <h1>Login</h1>
+            <form id="loginForm">
+                <input type="text" placeholder="Username" id="username" required>
+                <input type="password" placeholder="Password" id="password" required>
+                <button type="submit">Login</button>
+            </form>
+            <p>Don't have an account? <a href="signup.html">Sign up</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Simulate login functionality
+        document.getElementById("loginForm").onsubmit = function(event) {
+            event.preventDefault();
+            
+            // Store login information in localStorage
+            localStorage.setItem('loggedIn', 'true');
+            
+            // Redirect to home page
+            window.location.href = "index.html"; // Go to home page after login
+        };
+    </script>
+</body>
+</html>

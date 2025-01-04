@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="dessert.css">
+    <title>Dessert Recipes</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Dessert Recipes</h1>
+
+        <div id="recipesContainer"></div>
+
+        <a href="index.html" class="back">Back to Home</a>
+    </div>
+
+    <script src="dessert.js"></script>
+    <script>
+        // Data Storage for Dessert Recipes
+        let recipes = JSON.parse(localStorage.getItem("dessertRecipes")) || [
+            {
+                name: "Banana Cake",
+                image: "bananacake.jpg",
+                ingredients: ["2 ripe bananas", "1 1/2 cups flour", "1/2 cup sugar", "2 eggs", "1/2 cup butter", "1 tsp vanilla", "1 tsp baking powder"],
+                process: [
+                    "Mash the bananas and set aside.",
+                    "In a bowl, mix the flour, sugar, baking powder, and eggs.",
+                    "Add mashed bananas and butter to the mixture and stir until smooth.",
+                    "Pour into a greased cake pan and bake at 350°F (175°C) for 30 minutes.",
+                    "Cool and serve."
+                ],
+            },
+            {
+                name: "Carrot Cake",
+                image: "carrotcake.jpg",
+                ingredients: ["2 cups grated carrots", "1 1/2 cups flour", "1 cup sugar", "2 eggs", "1/2 cup oil", "1 tsp cinnamon", "1 tsp baking soda", "1/4 cup walnuts"],
+                process: [
+                    "Grate the carrots and set aside.",
+                    "In a bowl, mix flour, sugar, cinnamon, and baking soda.",
+                    "Add eggs and oil, then stir in grated carrots and walnuts.",
+                    "Pour into a greased pan and bake at 350°F (175°C) for 40 minutes.",
+                    "Cool and frost with cream cheese icing."
+                ],
+            },
+            {
+                name: "Bread Pudding",
+                image: "breadpudding.jpg",
+                ingredients: ["4 cups cubed bread", "2 cups milk", "1/2 cup sugar", "2 eggs", "1 tsp cinnamon", "1/2 cup raisins"],
+                process: [
+                    "Preheat the oven to 350°F (175°C).",
+                    "In a bowl, whisk together milk, sugar, eggs, and cinnamon.",
+                    "Add the cubed bread and raisins, and mix until well-coated.",
+                    "Pour into a greased baking dish and bake for 40 minutes.",
+                    "Cool and serve with vanilla ice cream or whipped cream."
+                ],
+            },
+            {
+                name: "Brownies",
+                image: "brownie.jpg",
+                ingredients: ["1 cup butter", "1 1/2 cups sugar", "1/2 cup cocoa powder", "2 eggs", "1 tsp vanilla", "1 cup flour", "1/2 tsp baking powder", "1/4 tsp salt"],
+                process: [
+                    "Preheat the oven to 350°F (175°C).",
+                    "Melt butter and mix with sugar, cocoa powder, eggs, and vanilla.",
+                    "Stir in flour, baking powder, and salt until combined.",
+                    "Pour into a greased pan and bake for 25 minutes.",
+                    "Cool and cut into squares."
+                ],
+            }
+        ];
+
+        const recipesContainer = document.getElementById("recipesContainer");
+
+        // Render Recipes
+        const renderRecipes = () => {
+            recipesContainer.innerHTML = recipes
+                .map((recipe) => `
+                <div class="recipe">
+                    <img src="${recipe.image}" alt="${recipe.name}">
+                    <div class="recipe-info">
+                        <h2>${recipe.name}</h2>
+                        <span class="heart" onclick="toggleFavorite('${recipe.name}', this)">&#9829;</span>
+                        <h3>Ingredients:</h3>
+                        <ul class="ingredients">
+                            ${recipe.ingredients.map(ing => `<li>${ing}</li>`).join("")}
+                        </ul>
+                        <h3>Preparation:</h3>
+                        <ul class="process">
+                            ${recipe.process.map(step => `<li>${step}</li>`).join("")}
+                        </ul>
+                    </div>
+                </div>
+            `).join("");
+        };
+
+        // Toggle Favorite
+        const toggleFavorite = (recipeName, heartIcon) => {
+            let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+            const index = favorites.indexOf(recipeName);
+
+            if (index === -1) {
+                favorites.push(recipeName);
+                heartIcon.style.color = "red"; // Change heart to red
+            } else {
+                favorites.splice(index, 1);
+                heartIcon.style.color = "white"; // Remove from favorites
+            }
+
+            localStorage.setItem("favorites", JSON.stringify(favorites));
+        };
+
+        // Initialize
+        renderRecipes();
+    </script>
+</body>
+</html>

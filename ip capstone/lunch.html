@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="lunch.css">
+    <title>Lunch Recipes</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Lunch Recipes</h1>
+
+        <div id="recipesContainer"></div>
+
+        <a href="index.html" class="back">Back to Home</a>
+    </div>
+
+    <script src="lunch.js"></script>
+    <script>
+        // Data Storage for Lunch Recipes
+        let recipes = JSON.parse(localStorage.getItem("lunchRecipes")) || [
+            {
+                name: "Chicken Curry",
+                image: "chickencurry.jpg",
+                ingredients: ["1 kg chicken", "2 onions", "2 tomatoes", "Ginger-garlic paste", "Spices (turmeric, chili powder, garam masala)", "Salt"],
+                process: [
+                    "Heat oil in a pan and fry onions until golden.",
+                    "Add ginger-garlic paste and cook until fragrant.",
+                    "Add chopped tomatoes and cook until soft.",
+                    "Add chicken pieces and spices, cook until chicken is tender.",
+                    "Add water, simmer until the curry thickens. Serve with rice or bread."
+                ],
+            },
+            {
+                name: "Biriyani",
+                image: "biriyani.jpg",
+                ingredients: ["2 cups basmati rice", "500g chicken", "Onions", "Tomatoes", "Ginger-garlic paste", "Spices (biryani masala, cardamom, cinnamon)", "Yogurt", "Coriander"],
+                process: [
+                    "Marinate chicken with yogurt, spices, and ginger-garlic paste for 1 hour.",
+                    "Cook rice with whole spices and set aside.",
+                    "Fry onions and tomatoes, add marinated chicken, and cook until done.",
+                    "Layer rice and chicken, simmer for 20 minutes. Garnish with coriander."
+                ],
+            },
+            {
+                name: "Fried Rice",
+                image: "friedrice.jpg",
+                ingredients: ["2 cups cooked rice", "1 cup mixed vegetables", "2 eggs", "Soy sauce", "Ginger-garlic paste", "Salt", "Pepper"],
+                process: [
+                    "Heat oil in a pan, scramble eggs and set aside.",
+                    "Add ginger-garlic paste and vegetables, stir fry until soft.",
+                    "Add rice, soy sauce, salt, and pepper. Stir well.",
+                    "Add scrambled eggs back into the pan and serve."
+                ],
+            }
+        ];
+
+        const recipesContainer = document.getElementById("recipesContainer");
+
+        // Render Recipes
+        const renderRecipes = () => {
+            recipesContainer.innerHTML = recipes
+                .map((recipe) => `
+                <div class="recipe">
+                    <img src="${recipe.image}" alt="${recipe.name}">
+                    <div class="recipe-info">
+                        <h2>${recipe.name}</h2>
+                        <span class="heart" onclick="toggleFavorite('${recipe.name}', this)">&#9829;</span>
+                        <h3>Ingredients:</h3>
+                        <ul class="ingredients">
+                            ${recipe.ingredients.map(ing => `<li>${ing}</li>`).join("")}
+                        </ul>
+                        <h3>Preparation:</h3>
+                        <ul class="process">
+                            ${recipe.process.map(step => `<li>${step}</li>`).join("")}
+                        </ul>
+                    </div>
+                </div>
+            `).join("");
+        };
+
+        // Toggle Favorite
+        const toggleFavorite = (recipeName, heartIcon) => {
+            let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+            const index = favorites.indexOf(recipeName);
+
+            if (index === -1) {
+                favorites.push(recipeName);
+                heartIcon.style.color = "red"; // Change heart to red
+            } else {
+                favorites.splice(index, 1);
+                heartIcon.style.color = "white"; // Remove from favorites
+            }
+
+            localStorage.setItem("favorites", JSON.stringify(favorites));
+        };
+
+        // Initialize
+        renderRecipes();
+    </script>
+</body>
+</html>

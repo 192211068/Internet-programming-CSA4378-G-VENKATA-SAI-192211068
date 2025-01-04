@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soup Recipes - Flavor Fusion</title>
+    <link rel="stylesheet" href="category.css">
+</head>
+<body>
+    <header>
+        <h1>Soup Recipes</h1>
+    </header>
+
+    <div class="recipe-list">
+        <div class="recipe-item">
+            <img src="recipe10.jpg" alt="Tomato Soup">
+            <h3>Tomato Soup</h3>
+            <p>Classic tomato soup with a creamy finish.</p>
+        </div>
+        <div class="recipe-item">
+            <img src="recipe11.jpg" alt="Chicken Soup">
+            <h3>Chicken Soup</h3>
+            <p>Comforting chicken soup with fresh herbs.</p>
+        </div>
+    </div>
+
+    <footer>
+        <a href="index.html">Back to Home</a>
+    </footer>
+</body>
+</html>

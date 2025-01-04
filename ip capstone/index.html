@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flavor Fusion</title>
+    <link rel="stylesheet" href="home.css">
+    <style>
+        /* Styles for Buttons */
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        #favoritesBtn,
+        #postRecipeBtn,
+        #viewPostedRecipesBtn {
+            background-color: #ffd700; /* Yellow color */
+            color: black;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+            margin: 10px 0;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        #favoritesBtn:hover,
+        #postRecipeBtn:hover,
+        #viewPostedRecipesBtn:hover {
+            background-color: #ffc107; /* Slightly darker yellow on hover */
+            transform: scale(1.1); /* Slight zoom effect */
+        }
+    </style>
+</head>
+<body>
+    <!-- Buttons Section -->
+    <div id="favorites-option" class="button-container">
+        <a href="favorites.html">
+            <button id="favoritesBtn">My Favorites</button>
+        </a>
+        <a href="postrecipe.html">
+            <button id="postRecipeBtn">Post a Recipe</button>
+        </a>
+        <a href="postedrecipes.html">
+            <button id="viewPostedRecipesBtn">View Posted Recipes</button>
+        </a>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>WELCOME TO FLAVOR FUSION!</h1>
+    </div>
+
+    <!-- Categories Section -->
+    <div class="categories-section">
+        <h2>Explore by Category</h2>
+        <div class="category-grid">
+            <div class="category-row">
+                <div class="category-card" data-category="breakfast">
+                    <a href="breakfast.html"><img src="breakfast.jpg" alt="Breakfast"></a>
+                    <h3>Breakfast</h3>
+                </div>
+                <div class="category-card" data-category="lunch">
+                    <a href="lunch.html"><img src="lunch.jpg" alt="Lunch"></a>
+                    <h3>Lunch</h3>
+                </div>
+            </div>
+            <div class="category-row">
+                <div class="category-card" data-category="dinner">
+                    <a href="dinner.html"><img src="dinner.jpg" alt="Dinner"></a>
+                    <h3>Dinner</h3>
+                </div>
+                <div class="category-card" data-category="dessert">
+                    <a href="dessert.html"><img src="dessert.jpg" alt="Dessert Recipes"></a>
+                    <h3>Dessert Recipes</h3>
+                </div>
+            </div>
+            <div class="category-row">
+                <div class="category-card" data-category="soup">
+                    <a href="soup.html"><img src="soup.jpg" alt="Soup Recipes"></a>
+                    <h3>Soup Recipes</h3>
+                </div>
+                <div class="category-card" data-category="quick">
+                    <a href="quick.html"><img src="quick.jpg" alt="Quick Recipes"></a>
+                    <h3>Quick Recipes</h3>
+                </div>
+            </div>
+            <div class="category-row">
+                <div class="category-card" data-category="salad">
+                    <a href="salad.html"><img src="salad.jpg" alt="Salad Recipes"></a>
+                    <h3>Salad Recipes</h3>
+                </div>
+                <div class="category-card" data-category="snack">
+                    <a href="snack.html"><img src="snack.jpg" alt="Snack Recipes"></a>
+                    <h3>Snack Recipes</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Connect Section -->
+    <div class="connect">
+        <h2>Connect With Us</h2>
+        <div class="social-icons">
+            <a href="#"><img src="facebook.jpg" alt="Facebook"></a>
+            <a href="#"><img src="instagram.jpg" alt="Instagram"></a>
+            <a href="#"><img src="youtube.jpg" alt="YouTube"></a>
+            <a href="#"><img src="twitter.jpg" alt="Twitter"></a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <a href="#">Feedback</a>
+        <a href="#">Help</a>
+        <a href="aboutus.html">
+            <button id="aboutUsBtn">About Us</button>
+        </a>
+    </div>
+
+    <script>
+        // JavaScript for Favorites Modal (if needed in future)
+        const showFavorites = () => {
+            const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+            const favoritesList = document.getElementById("favoritesList");
+            favoritesList.innerHTML = favorites.length
+                ? favorites.map((item) => `<li>${item}</li>`).join("")
+                : "<li>No favorites added yet.</li>";
+            document.getElementById("favoritesModal").style.display = "flex";
+        };
+
+        const closeFavoritesModal = () => {
+            document.getElementById("favoritesModal").style.display = "none";
+        };
+    </script>
+</body>
+</html>

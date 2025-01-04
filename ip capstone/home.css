@@ -1,0 +1,191 @@
+/* General Styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    color: #333;
+    box-sizing: border-box;
+    background: url('bg02.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* My Favorites Button */
+.favorites-option {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+#favoritesBtn {
+    padding: 10px 20px;
+    background-color: white;
+    color: black;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#favoritesBtn:hover {
+    background-color: orange;
+    color: white;
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+.hero h1 {
+    font-family: 'Georgia', serif;
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    color: orange;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Categories Section */
+.categories-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: orange;
+}
+
+.category-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 50px; /* Spacing between rows */
+    padding: 20px;
+    align-items: center; /* Center aligns rows */
+}
+
+.category-row {
+    display: flex;
+    gap: 80px; /* Adds more space between the cards */
+    justify-content: center; /* Centers the content */
+}
+
+.category-card {
+    text-align: center;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    cursor: pointer;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 400px; /* Square dimensions */
+    height: 400px; /* Square dimensions */
+}
+
+.category-card:hover {
+    background-color: orange;
+    color: white;
+    transform: translateY(-10px); /* Lift effect */
+}
+
+.category-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.category-card h3 {
+    margin-top: 15px;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* Favorites Modal */
+.favorites-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.favorites-modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.favorites-modal h2 {
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+
+.favorites-modal ul {
+    list-style: none;
+    padding: 0;
+}
+
+.favorites-modal li {
+    font-size: 1.2rem;
+    margin: 10px 0;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 2rem;
+    color: red;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: darkred;
+}
+
+/* Connect Section */
+.connect {
+    text-align: center;
+    margin-top: 60px;
+    color: orange; /* Changed color to orange */
+    padding-bottom: 60px; /* Added padding to ensure it's visible above footer */
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.social-icons a img {
+    width: 40px;
+    height: 40px;
+}
+
+/* Footer */
+.footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+.footer a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
